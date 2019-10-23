@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Blog Post - Start Bootstrap Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/blog-home.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Kirk's Project Blog</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="../index.html">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../_navbar/blog-about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../_navbar/blog-services.html">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../_navbar/blog-contact.html">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Post Content Column -->
+      <div class="col-lg-8">
+
+        <!-- Title -->
+        <h1 class="mt-4">Semi-Manual Play-list Auto Audacity Audio Recording Script</h1>
+
+        <!-- Author -->
+        <p class="lead">
+          by
+          <a href="#">Kirk.O</a>
+        </p>
+
+        <hr>
+
+        <!-- Date/Time -->
+        <p>Posted on October 22, 2019 at 11:30 PM</p>
+
+        <hr>
+
+        <!-- Preview Image -->
+        <img class="img-fluid rounded" src="../img/Small_Code_Snapshot_Semi-Manual_Consistent_VideoSite(Youtube)_Auto_Audio_Recording_Music_Audacity_1.0.JPG" alt="">
+
+        <hr>
+
+        <!-- Post Content -->
+        <p class="lead">My second "practical" problem solving program/script that I made, also in AutoHotKey. This one I have used more than the previous, just because I have more use for it than the other, this one is generally less complex though.</p>
+
+        <p>I made this script, because I found from using another program to save my music play-list from Youtube was not working for many of the songs. The reason (I believe) that I found is that Youtube does not save the audio file sources on every video, so that you can't access the source audio in a neat little downloadable file format at you whim. So what I decided was probably the best work around for this was to just record the audio through something like Audacity and have the "source" file and be able to do with it as a please, legal or not.</p>
+		
+		<p>Now, I had various ideas on how I could go about doing this in a script. The first was to be nearly fully automated, to some extent. I would bascially just have the program wait for a period of silence (such as when the song ended) and use that to determine when to save the current audio file and do the steps to go onto the next and do that for the entire play-list. The problem with this I quickly found was that it was a very error prone process to accurately determine what was the actual end of the song with this method.</p>
+		
+		<p>The way I was monitoring the audio was using this handy audio library that was made by an AutoHotKey community member, that basically used the same functionality as the Windows Vista Audio library, but it was accessible through this library, very handy tool. After doing a lot of tweeking I made a fairly consistent method, this method basically just looped constantly and tracked the peak audio volume being processed at that second, and was constantly checking if that level went below a threshold with a simple if-statement inside this loop. When the audio went low enough, the rest of the script ran and did the necessary steps to save the current file and start the process over again for the next song.</p>
+		
+		<p>Now this whole thing works very well in theory, but in actual practice, there are a lot of things that easily throw off this entire process and basically breaks the script if you happen to look away from it long enough, which was initially the plan, run the script before I went to sleep and wake up to a folder full of neatly saved audio files. The problem was that things such as video buffering would throw the whole thing out of wack and cause incomplete audio files and many missed songs, another thing was songs with ocasional periods of low volume would do the same, finally the biggest problem was videos that had little to no period of silence at the end, this would completely mess up the script in multiple ways. The primary issue was that if videos had no silence, the script would continue to the next video, before properly counting that the previous one was finished, and everything would get out of wack and would usually lead to one giant recording instead of the individual files I wanted.</p>
+		
+		<p>The first thing I tried was taking out the silence detection all together (which made things less fancy is some sense), and the way I was tracking the video ending now was through some web-scrapping of the HTML code that would find the start time and end times of the video, and do a small equation that would convert these into a "Sleep command" duration in seconds, this would in theory end the video at the exact time the video SHOULD be about to end minus 1 or 2 seconds. Like the previous issue, this one had problems too, the biggest one that I was not initially expecting was that the "Sleep" command was extremely inaccurate when the times become large enough, such as anything over 1-2 minutes long, and the accuracy would depend completely on what the current processing load was on the PC, so if I was doing stuff while running this, the time would be +-6-11 seconds or so, which was not going to work. After I found this out, I just decided to do a semi-manual set-up that I have now until I make a more complex version with more checks and balances to be as autonomous as possible. For now though, the manual version that takes out a lot of the tedious works for my purposes, I hope to revise this eventually though and polish it up.</p>
+
+        <hr>
+
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        <!-- Search Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Search</h5>
+          <div class="card-body">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-secondary" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Categories</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">Web Design</a>
+                  </li>
+                  <li>
+                    <a href="#">HTML</a>
+                  </li>
+                  <li>
+                    <a href="#">Freebies</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">JavaScript</a>
+                  </li>
+                  <li>
+                    <a href="#">CSS</a>
+                  </li>
+                  <li>
+                    <a href="#">Tutorials</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Side Widget</h5>
+          <div class="card-body">
+            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
